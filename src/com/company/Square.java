@@ -13,12 +13,13 @@ public class Square extends Shape {
     List<Float> positionList = new ArrayList<>();
 
     public Square() {
-        this(new Point().x,new Point().y);
+        this(new Point().x, new Point().y);
     }
 
-    public Square(float x, float y){
-        this(x,y,(float) Math.random() * App.field);
+    public Square(float x, float y) {
+        this(x, y, (float) Math.random() * App.field);
     }
+
     public Square(float x, float y, float width) {
         this.x = x;
         this.y = y;

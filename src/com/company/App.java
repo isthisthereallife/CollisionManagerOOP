@@ -10,7 +10,6 @@ public class App {
     public static int field;
 
     private void makeLists(int points, int squares, int circles, int field) {
-        App.field = field;
         for (int i = 0; i < points; i++) {
             pointList.add(new Point());
         }
@@ -24,17 +23,8 @@ public class App {
     }
 
     App(int p, int s, int c, int f) {
-
-        // makeLists(p, s, c, f);
-        App.field = f; //ta bort denna sen
-        circleList.add(new Circle(10, 10, 20));
-        circleList.add(new Circle(30, 30, 1));
-        pointList.add(new Point(10, 10));
-        squareList.add(new Square(10, 10, 1));
-        squareList.add(new Square(10, 12, 5));
-        squareList.add(new Square(50, 50, 10));
-        //checkForOverlap(squareList);
-
+        App.field = f;
+        makeLists(p, s, c, f);
 
         //cirklar jämförs med cirklar rutor punkter
         circleCircleCollision(circleList);
@@ -43,8 +33,7 @@ public class App {
 
         //rutor jämförs med rutor punkter
         squareSquareCollision(squareList);
-      //  squarePointCollision(squareList, pointList);
-
+        squarePointCollision(squareList, pointList);
 
         //punkter jämförs med punkter
         pointPointCollision(pointList);
@@ -52,19 +41,30 @@ public class App {
 
     private void squarePointCollision(List<Square> squareList, List<Point> pointList) {
         for (int i = 0; i < squareList.size() - 1; i++) {
-            for (int j = i + 1; j < squareList.size(); j++) {
-                if ((squareList.get(i).yDown > squareList.get(j).yUp)) {
-                    //outsideBottom = true;
+            boolean outsideBottom = false;
+            boolean outsideTop = false;
+            boolean outsideLeft = false;
+            boolean outsideRight = false;
+            for (int j = 0; j < pointList.size(); j++) {
+                outsideBottom = false;
+                outsideTop = false;
+                outsideLeft = false;
+                outsideRight = false;
+                if ((squareList.get(i).yDown > pointList.get(j).y)) {
+                    outsideBottom = true;
                 }
-                if ((squareList.get(i).yUp < squareList.get(j).yDown)) {
-                   // outsideTop = true;
+                if ((squareList.get(i).yUp < pointList.get(j).y)) {
+                    outsideTop = true;
                 }
-                if ((squareList.get(i).xLeft > squareList.get(j).xRight)) {
-                   // outsideLeft = true;
+                if ((squareList.get(i).xLeft > pointList.get(j).x)) {
+                    outsideLeft = true;
                 }
-                if ((squareList.get(i).xRight < squareList.get(j).xLeft)) {
-                    //outsideRight = true;
-                } else System.out.println("COLLISSIOOOON between square" + i + " and square " + j);
+                if ((squareList.get(i).xRight < pointList.get(j).x)) {
+                    outsideRight = true;
+                } else if (!outsideBottom && !outsideLeft && !outsideRight && !outsideTop) {
+                    System.out.println("Overlap between Square " + i + " and Point " + j + " at X: " + pointList.get(j).x + " Y: " + pointList.get(j).y+"\n");
+                } else System.out.println("No overlap between Square " + i + " and Point " + j + "\n");
+
             }
         }
     }
@@ -89,7 +89,7 @@ public class App {
                     outsideRight = true;
                 }
                 if (!outsideBottom && !outsideLeft && !outsideRight && !outsideTop) {
-                    System.out.println("COLLISSIOOOON between square" + i + " and square " + j);
+                    System.out.println("Overlap between Square " + i + " and Square " + j+"\n");
                 }
             }
         }
@@ -97,19 +97,18 @@ public class App {
 
     private void circlePointCollision(List<Circle> circleList, List<Point> pointList) {
         for (int i = 0; i < circleList.size() - 1; i++) {
-            for (int j = i + 1; j < pointList.size(); j++) {
+            for (int j = 0; j < pointList.size(); j++) {
                 float combinedR = circleList.get(i).r;
                 float distanceBetween = pythagoForDistance(circleList.get(i).x, circleList.get(i).y, pointList.get(j).x, pointList.get(j).y);
                 if (combinedR >= distanceBetween) {
-                    System.out.println("Overlap between circle " + i + " and point " + j);
+                    System.out.println("Overlap between Circle " + i + " and Point " + j);
                     System.out.println("Circle " + i + " is at X: " + circleList.get(i).x + " Y: " + circleList.get(i).y);
-                    System.out.println("point " + j + " is at X: " + pointList.get(j).x + " Y: " + pointList.get(j).y);
+                    System.out.println("Point " + j + " is at X: " + pointList.get(j).x + " Y: " + pointList.get(j).y);
                 } else {
-                    System.out.println("NO overlap between circle " + i + " and point " + j);
+                    System.out.println("NO overlap between Circle " + i + " and Point " + j);
                 }
                 System.out.println("Distance between centers: " + distanceBetween);
-                System.out.println("Radius of circle: " + combinedR);
-                System.out.println();
+                System.out.println("Radius of Circle" + i + ": " + combinedR+"\n");
             }
         }
     }
@@ -121,11 +120,11 @@ public class App {
                 float combinedR = circleList.get(i).r + squareList.get(j).width / 2;
                 float distanceBetween = pythagoForDistance(circleList.get(i).x, circleList.get(i).y, squareList.get(j).x, squareList.get(j).y);
                 if (combinedR >= distanceBetween) {
-                    System.out.println("Overlap between circle " + i + " and square " + j);
+                    System.out.println("Overlap between Circle " + i + " and Square " + j);
                     System.out.println("Circle " + i + " is at X: " + circleList.get(i).x + " Y: " + circleList.get(i).y);
                     System.out.println("Square " + j + " is at X: " + squareList.get(j).x + " Y: " + squareList.get(j).y);
                 } else {
-                    System.out.println("NO overlap between circle " + i + " and square " + j);
+                    System.out.println("NO overlap between Circle " + i + " and Square " + j);
                 }
                 System.out.println("Distance between centers: " + distanceBetween);
                 System.out.println("\"Radii\" combined: " + combinedR);
@@ -139,11 +138,11 @@ public class App {
             for (int j = i + 1; j < pointList.size(); j++) {
                 float distanceBetween = pythagoForDistance(pointList.get(i).x, pointList.get(i).y, pointList.get(j).x, pointList.get(j).y);
                 if (distanceBetween == 0) {
-                    System.out.println("Overlap between point " + i + " and point " + j);
+                    System.out.println("Overlap between Point " + i + " and Point " + j);
                     System.out.println("Point " + i + " is at X: " + pointList.get(i).x + " Y: " + pointList.get(i).y);
                     System.out.println("Point " + j + " is at X: " + pointList.get(j).x + " Y: " + pointList.get(j).y);
                 } else {
-                    System.out.println("NO overlap between point " + i + " and point " + j);
+                    System.out.println("NO overlap between Point " + i + " and Point " + j);
                 }
                 System.out.println("Distance between points: " + distanceBetween);
                 System.out.println();
@@ -158,11 +157,11 @@ public class App {
                 float combinedR = shapeList.get(i).r + shapeList.get(j).r;
                 float distanceBetween = pythagoForDistance(shapeList.get(i).x, shapeList.get(i).y, shapeList.get(j).x, shapeList.get(j).y);
                 if (combinedR >= distanceBetween) {
-                    System.out.println("Overlap between circle " + i + " and circle " + j);
+                    System.out.println("Overlap between Circle " + i + " and Circle " + j);
                     System.out.println("Circle " + i + " is at X: " + shapeList.get(i).x + " Y: " + shapeList.get(i).y);
                     System.out.println("Circle " + j + " is at X: " + shapeList.get(j).x + " Y: " + shapeList.get(j).y);
                 } else {
-                    System.out.println("NO overlap between circle " + i + " and circle " + j);
+                    System.out.println("NO overlap between Circle " + i + " and Circle " + j);
                 }
                 System.out.println("Distance between circle centers: " + distanceBetween);
                 System.out.println("Radii combined: " + combinedR);
@@ -177,67 +176,6 @@ public class App {
         float yDist = y1 - y2;
         yDist = (float) Math.pow(yDist, 2);
         return (float) Math.sqrt(xDist + yDist);
-
-
-    }
-
-    private void checkIfOverlap(List<Square> shapelist) {
-        for (int i = 0; i < shapelist.size(); i++) {
-            float x1 = shapelist.get(i).x;
-            float y1 = shapelist.get(i).y;
-            float w1 = shapelist.get(i).width;
-            float w2 = 0.f;
-            float x1neg = x1 - w1 / 2;
-            float x1pos = x1 + w1 / 2;
-            float y1neg = y1 - w1 / 2;
-            float y1pos = y1 + w1 / 2;
-            //nu har jag x y och w på ett. nu ska det itereras över alla andra element i shapelist,
-            for (int j = i + 1; j < shapelist.size(); j++) {
-                //ta ut x y och w
-                float x2 = shapelist.get(j).x;
-                float y2 = shapelist.get(j).y;
-                w2 = shapelist.get(i).width;
-                float x2neg = x2 - w2 / 2;
-                float x2pos = x2 + w2 / 2;
-                float y2neg = y2 - w2 / 2;
-                float y2pos = y2 + w2 / 2;
-                //om x1pos>=x2neg så är en del av 1s xposition på samma som 2s xposition
-                if ((x1pos >= x2neg && y1pos >= y2neg) || (x2pos >= x1neg && y2pos >= y1neg)) {
-                    System.out.println("något");
-                } else System.out.println("inte något");
-                //och göras jämförelser
-                if (x1 < x2 + w2 &&
-                        x1 + w1 > x2 &&
-                        y1 < y2 + w2 &&
-                        y1 + w1 > y2) {
-                    System.out.println("THERE IS OVERLAP HERE");
-                }
-            }
-        }
-
-    }
-
-
-    public void checkForOverlap(List<Square> squarelist) {
-        //iterera listan av squares
-        for (int i = 0; i < squarelist.size(); i++) {
-
-            //iterera över alla olika floats i varje square
-            for (float pos1 : squarelist.get(i).positionList) {
-                //för varje sån, loopa igenom
-                for (int j = i + 1; j < squarelist.size(); j++) {
-                    System.out.println("lookup " + i + "." + j + ": " + pos1);
-                    if ((pos1 < squarelist.get(j).xRight || pos1 > squarelist.get(j).xLeft) && (pos1 < squarelist.get(j).yUp || pos1 > squarelist.get(j).yDown)) {
-                        if (pos1 < squarelist.get(j).yUp || pos1 > squarelist.get(j).yDown) {
-                            System.out.println("ÖVERLAPP PÅ Y-AXELN: " + pos1 + " LIGGER MELLAN Y = " + squarelist.get(j).yUp + " och Y = " + squarelist.get(j).yDown);
-                        }
-                        if (pos1 < squarelist.get(j).yUp || pos1 > squarelist.get(j).yDown) {
-                            System.out.println("ÖVERLAPP PÅ X-AXELN: " + pos1 + " LIGGER MELLAN " + squarelist.get(j).xRight + " och " + squarelist.get(j).xLeft);
-                        }
-                    }
-                }
-            }
-        }
     }
 }
 
