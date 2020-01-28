@@ -3,7 +3,7 @@ package com.company;
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
-        new App();
+        //Menu.getInstance();
+        new App(0,0,0,100);
     }
 }
