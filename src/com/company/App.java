@@ -9,7 +9,7 @@ public class App {
     List<Circle> circleList = new ArrayList<>();
     public static int field;
 
-    private void makeLists(int points, int squares, int circles, int field) {
+    private void makeLists(int points, int squares, int circles) {
         for (int i = 0; i < points; i++) {
             pointList.add(new Point());
         }
@@ -23,8 +23,7 @@ public class App {
 
     App(int p, int s, int c, int f) {
         App.field = f;
-        makeLists(p, s, c, f);
-
+        makeLists(p, s, c);
         circleCircleCollision(circleList);
         circleSquareCollision(circleList, squareList);
         circlePointCollision(circleList, pointList);
@@ -35,56 +34,27 @@ public class App {
 
     private void squarePointCollision(List<Square> squareList, List<Point> pointList) {
         for (int i = 0; i < squareList.size(); i++) {
-            boolean outsideBottom = false;
-            boolean outsideTop = false;
-            boolean outsideLeft = false;
-            boolean outsideRight = false;
             for (int j = 0; j < pointList.size(); j++) {
-                outsideBottom = false;
-                outsideTop = false;
-                outsideLeft = false;
-                outsideRight = false;
-                if ((squareList.get(i).yDown > pointList.get(j).y)) {
-                    outsideBottom = true;
-                }
-                if ((squareList.get(i).yUp < pointList.get(j).y)) {
-                    outsideTop = true;
-                }
-                if ((squareList.get(i).xLeft > pointList.get(j).x)) {
-                    outsideLeft = true;
-                }
-                if ((squareList.get(i).xRight < pointList.get(j).x)) {
-                    outsideRight = true;
-                } else if (!outsideBottom && !outsideLeft && !outsideRight && !outsideTop) {
+                if (!(squareList.get(i).yDown > pointList.get(j).y) &&
+                        !(squareList.get(i).yUp < pointList.get(j).y) &&
+                        !(squareList.get(i).xLeft > pointList.get(j).x) &&
+                        !(squareList.get(i).xRight < pointList.get(j).x)) {
                     System.out.println("Overlap between Square " + i + " and Point " + j + " at X: " + pointList.get(j).x + " Y: " + pointList.get(j).y + "\n");
-                } else System.out.println("No overlap between Square " + i + " and Point " + j + "\n");
+                } else System.out.println("NO overlap between Square " + i + " and Point " + j + "\n");
 
             }
         }
     }
 
     private void squareSquareCollision(List<Square> squareList) {
-        boolean outsideBottom = false;
-        boolean outsideTop = false;
-        boolean outsideLeft = false;
-        boolean outsideRight = false;
         for (int i = 0; i < squareList.size() - 1; i++) {
             for (int j = i + 1; j < squareList.size(); j++) {
-                if ((squareList.get(i).yDown > squareList.get(j).yUp)) {
-                    outsideBottom = true;
-                }
-                if ((squareList.get(i).yUp < squareList.get(j).yDown)) {
-                    outsideTop = true;
-                }
-                if ((squareList.get(i).xLeft > squareList.get(j).xRight)) {
-                    outsideLeft = true;
-                }
-                if ((squareList.get(i).xRight < squareList.get(j).xLeft)) {
-                    outsideRight = true;
-                }
-                if (!outsideBottom && !outsideLeft && !outsideRight && !outsideTop) {
+                if (!(squareList.get(i).yDown > squareList.get(j).yUp) &&
+                        !(squareList.get(i).yUp < squareList.get(j).yDown) &&
+                        !(squareList.get(i).xLeft > squareList.get(j).xRight) &&
+                        !(squareList.get(i).xRight < squareList.get(j).xLeft)) {
                     System.out.println("Overlap between Square " + i + " and Square " + j + "\n");
-                }
+                } else System.out.println("NO overlap between Square " + i + " and Square " + j + "\n");
             }
         }
     }
