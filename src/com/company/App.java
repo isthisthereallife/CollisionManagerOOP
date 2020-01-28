@@ -19,23 +19,17 @@ public class App {
         for (int i = 0; i < circles; i++) {
             circleList.add(new Circle());
         }
-
     }
 
     App(int p, int s, int c, int f) {
         App.field = f;
         makeLists(p, s, c, f);
 
-        //cirklar jämförs med cirklar rutor punkter
         circleCircleCollision(circleList);
         circleSquareCollision(circleList, squareList);
         circlePointCollision(circleList, pointList);
-
-        //rutor jämförs med rutor punkter
         squareSquareCollision(squareList);
         squarePointCollision(squareList, pointList);
-
-        //punkter jämförs med punkter
         pointPointCollision(pointList);
     }
 

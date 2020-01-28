@@ -23,7 +23,6 @@ public class Menu {
             if (i < 2) System.out.println("\n\n~~~~RECALCULATING USING NEW DATA~~~~\n\n");
             else System.out.println("\n~~~~CALCULATIONS COMPLETE~~~~\n");
         }
-
     }
 
     public static Menu getInstance() {
