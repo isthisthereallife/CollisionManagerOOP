@@ -40,7 +40,7 @@ public class App {
     }
 
     private void squarePointCollision(List<Square> squareList, List<Point> pointList) {
-        for (int i = 0; i < squareList.size() - 1; i++) {
+        for (int i = 0; i < squareList.size(); i++) {
             boolean outsideBottom = false;
             boolean outsideTop = false;
             boolean outsideLeft = false;
@@ -62,7 +62,7 @@ public class App {
                 if ((squareList.get(i).xRight < pointList.get(j).x)) {
                     outsideRight = true;
                 } else if (!outsideBottom && !outsideLeft && !outsideRight && !outsideTop) {
-                    System.out.println("Overlap between Square " + i + " and Point " + j + " at X: " + pointList.get(j).x + " Y: " + pointList.get(j).y+"\n");
+                    System.out.println("Overlap between Square " + i + " and Point " + j + " at X: " + pointList.get(j).x + " Y: " + pointList.get(j).y + "\n");
                 } else System.out.println("No overlap between Square " + i + " and Point " + j + "\n");
 
             }
@@ -89,14 +89,14 @@ public class App {
                     outsideRight = true;
                 }
                 if (!outsideBottom && !outsideLeft && !outsideRight && !outsideTop) {
-                    System.out.println("Overlap between Square " + i + " and Square " + j+"\n");
+                    System.out.println("Overlap between Square " + i + " and Square " + j + "\n");
                 }
             }
         }
     }
 
     private void circlePointCollision(List<Circle> circleList, List<Point> pointList) {
-        for (int i = 0; i < circleList.size() - 1; i++) {
+        for (int i = 0; i < circleList.size(); i++) {
             for (int j = 0; j < pointList.size(); j++) {
                 float combinedR = circleList.get(i).r;
                 float distanceBetween = pythagoForDistance(circleList.get(i).x, circleList.get(i).y, pointList.get(j).x, pointList.get(j).y);
@@ -108,13 +108,13 @@ public class App {
                     System.out.println("NO overlap between Circle " + i + " and Point " + j);
                 }
                 System.out.println("Distance between centers: " + distanceBetween);
-                System.out.println("Radius of Circle" + i + ": " + combinedR+"\n");
+                System.out.println("Radius of Circle" + i + ": " + combinedR + "\n");
             }
         }
     }
 
     private void circleSquareCollision(List<Circle> circleList, List<Square> squareList) {
-        for (int i = 0; i < circleList.size() - 1; i++) {
+        for (int i = 0; i < circleList.size(); i++) {
             for (int j = 0; j < squareList.size(); j++) {
                 //radien för en ruta är halva bredden
                 float combinedR = circleList.get(i).r + squareList.get(j).width / 2;

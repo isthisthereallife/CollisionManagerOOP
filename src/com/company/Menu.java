@@ -20,7 +20,7 @@ public class Menu {
         System.out.println("\n\n~~~~PERFORMING CALCULATIONS~~~~\n\n");
         for (int i = 0; i < 3; i++) {
             new App(numberOfPoints, numberOfSquares, numberOfCircles, sizeOfField);
-            if (i<2)System.out.println("\n\n~~~~RECALCULATING USING NEW DATA~~~~\n\n");
+            if (i < 2) System.out.println("\n\n~~~~RECALCULATING USING NEW DATA~~~~\n\n");
             else System.out.println("\n~~~~CALCULATIONS COMPLETE~~~~\n");
         }
 
