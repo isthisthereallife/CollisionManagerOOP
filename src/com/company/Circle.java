@@ -16,4 +16,9 @@ public class Circle extends Shape {
         this.y = y;
         this.r = r;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Circle X: %f Y: %f Radius: %f", x, y, r);
+    }
 }

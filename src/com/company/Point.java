@@ -12,4 +12,9 @@ public class Point {
         this.x = x;
         this.y = y;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Point X: %f Y: %f", x, y);
+    }
 }
