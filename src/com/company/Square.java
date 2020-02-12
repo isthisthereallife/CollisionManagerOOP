@@ -24,9 +24,10 @@ public class Square extends Shape {
         yUp = y + width / 2;
         yDown = y - width / 2;
     }
+
     @Override
-    public String toString(){
-        return String.format("Square X: <%f-%f> Y: <%f-%f>",xLeft,xRight,yDown,yUp);
+    public String toString() {
+        return String.format("Square X: <%f-%f> Y: <%f-%f>", xLeft, xRight, yDown, yUp);
 
     }
 }

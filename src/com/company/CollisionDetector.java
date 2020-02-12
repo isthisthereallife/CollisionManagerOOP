@@ -42,9 +42,9 @@ public class CollisionDetector {
 
     private void circlecircle(Circle a, Circle b) {
         if (a.r + b.r >= pythagoForDistance(a.x, a.y, b.x, b.y)) {
-            System.out.printf("OVERLAP!%n%s%n%s%n", a.toString(), b.toString());
+            System.out.printf("%nOVERLAP!%n%s%n%s%n", a.toString(), b.toString());
         } else {
-            System.out.printf("NO overlap.%n%s%n%s%n", a.toString(), b.toString());
+            System.out.printf("%nNO overlap.%n%s%n%s%n", a.toString(), b.toString());
         }
         System.out.println("Distance between centers: " + pythagoForDistance(a.x, a.y, b.x, b.y));
         System.out.println("Radii combined: " + (a.r + b.r));
@@ -52,9 +52,9 @@ public class CollisionDetector {
 
     private void circleSquare(Circle a, Square b) {
         if (a.r + b.width / 2 >= pythagoForDistance(a.x, a.y, b.x, b.y)) {
-            System.out.printf("OVERLAP!%n%s%n%s%n", a.toString(), b.toString());
+            System.out.printf("%nOVERLAP!%n%s%n%s%n", a.toString(), b.toString());
         } else {
-            System.out.printf("NO overlap between %n%s%n%s%n", a.toString(), b.toString());
+            System.out.printf("%nNO overlap between %n%s%n%s%n", a.toString(), b.toString());
         }
         System.out.println("Distance between centers: " + pythagoForDistance(a.x, a.y, b.x, b.y));
         System.out.println("\"Radii\" combined: " + (a.r + b.width / 2));
@@ -62,9 +62,9 @@ public class CollisionDetector {
 
     private void circlePoint(Circle a, Point b) {
         if (a.r >= pythagoForDistance(a.x, a.y, b.x, b.y)) {
-            System.out.printf("OVERLAP!%n%s%n%s%n", a.toString(), b.toString());
+            System.out.printf("%nOVERLAP!%n%s%n%s%n", a.toString(), b.toString());
         } else {
-            System.out.printf("NO overlap.%n%s%n%s%n", a.toString(), b.toString());
+            System.out.printf("%nNO overlap.%n%s%n%s%n", a.toString(), b.toString());
         }
         System.out.println("Distance between centers: " + pythagoForDistance(a.x, a.y, b.x, b.y));
     }
@@ -74,8 +74,8 @@ public class CollisionDetector {
                 !(a.yUp < b.yDown) &&
                 !(a.xLeft > b.xRight) &&
                 !(a.xRight < b.xLeft)) {
-            System.out.printf("OVERLAP!%n%s%n%s%n", a.toString(), b.toString());
-        } else System.out.printf("NO overlap between %n%s%n%s%n", a.toString(), b.toString());
+            System.out.printf("%nOVERLAP!%n%s%n%s%n", a.toString(), b.toString());
+        } else System.out.printf("%nNO overlap between %n%s%n%s%n", a.toString(), b.toString());
     }
 
     private void squarePoint(Square a, Point b) {
@@ -83,14 +83,14 @@ public class CollisionDetector {
                 !(a.yUp < b.y) &&
                 !(a.xLeft > b.x) &&
                 !(a.xRight < b.x)) {
-            System.out.printf("OVERLAP!%n%s%n%s%n", a.toString(), b.toString());
-        } else System.out.printf("NO overlap between %n%s%n%s%n", a.toString(), b.toString());
+            System.out.printf("%nOVERLAP!%n%s%n%s%n", a.toString(), b.toString());
+        } else System.out.printf("%nNO overlap between %n%s%n%s%n", a.toString(), b.toString());
     }
 
     private void pointPoint(Point a, Point b) {
         if (a.x == b.x && a.y == b.y) {
-            System.out.printf("OVERLAP!%n%s%n%s%n", a.toString(), b.toString());
-        } else System.out.printf("NO overlap between %n%s%n%s%n", a.toString(), b.toString());
+            System.out.printf("%nOVERLAP!%n%s%n%s%n", a.toString(), b.toString());
+        } else System.out.printf("%nNO overlap between %n%s%n%s%n", a.toString(), b.toString());
     }
 
 
